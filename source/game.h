@@ -60,9 +60,9 @@ void ShowVersionInfo(void)
 	Text(125,150,cpr);
 	Text(125,200,"Programmversion: ");
 	Text(125,220,ver);
-	Text(125,250,"Veröffentlicht am:");
+	Text(125,250,"VerÃ¶ffentlicht am:");
 	Text(125,270,verdate);
-	Text(125,310,"Drücke eine Maustaste um zum Spiel zurückzukehren....");
+	Text(125,310,"DrÃ¼cke eine Maustaste um zum Spiel zurÃ¼ckzukehren....");
 	SetFont("Arial",14);
 	GDI_Cleanup();//Get the DC of the surface
 
@@ -100,9 +100,9 @@ void ShowDebugInfo(void)
 	Text(125,320,tostring(marked).data());
 	
 
-	Text(225,200,"Verfügbarer RAM (in KByte): ");
+	Text(225,200,"VerfÃ¼gbarer RAM (in KByte): ");
 	Text(225,220,tostring(AvailSysMem()).data());
-	Text(225,250,"Verfügbarer Video RAM (in KByte):");
+	Text(225,250,"VerfÃ¼gbarer Video RAM (in KByte):");
 	Text(225,270,tostring(AvailVidMem()).data());
 	Text(225,300,"CPU:");
 	Text(225,320,GetCPUName().data());
@@ -118,7 +118,7 @@ void ShowDebugInfo(void)
 	
 
 	
-	Text(125,360,"Drücke eine Maustaste um zum Spiel zurückzukehren....");
+	Text(125,360,"DrÃ¼cke eine Maustaste um zum Spiel zurÃ¼ckzukehren....");
 
 	SetFont("Arial",14);
 	GDI_Cleanup();//Get the DC of the surface
@@ -143,14 +143,14 @@ void ShowHelp(void)
 	SetFont("Arial",16,1,0,1);
 	Text(150,130,"Anleitung:");
 	SetFont("Comic Sans MS",16);
-	Text(150,150,"Versuchen Sie fünf oder mehr gleichfarbige Kugeln in eine Reihe zu bekommen. ");
-	Text(150,170,"Senkrechte, waagerechte und auch diagonale Reihen werden gezählt. ");
-    Text(150,190,"Für jede Reihe gibt es zwei Punkte pro beteiligter Kugel. ");
-    Text(150,210,"Die Kugeln bewegen Sie mit der Maus. Klicken Sie zunächst auf die Kugel");
+	Text(150,150,"Versuchen Sie fÃ¼nf oder mehr gleichfarbige Kugeln in eine Reihe zu bekommen. ");
+	Text(150,170,"Senkrechte, waagerechte und auch diagonale Reihen werden gezÃ¤hlt. ");
+    Text(150,190,"FÃ¼r jede Reihe gibt es zwei Punkte pro beteiligter Kugel. ");
+    Text(150,210,"Die Kugeln bewegen Sie mit der Maus. Klicken Sie zunÃ¤chst auf die Kugel");
     Text(150,230,"und dann auf das Feld zu dem sich die Kugel bewegen soll. ");
     Text(150,250,"Achten Sie aber darauf, dass der Weg dorthin frei ist....  ");
-	Text(150,270,"Und mit jeder Bewegung die nicht zum Erfolg führte, tauchen drei weitere Kugeln auf...");
-    Text(150,290,"Das Spiel endet, wenn keine weitere Bewegung mehr möglich ist.");
+	Text(150,270,"Und mit jeder Bewegung die nicht zum Erfolg fÃ¼hrte, tauchen drei weitere Kugeln auf...");
+    Text(150,290,"Das Spiel endet, wenn keine weitere Bewegung mehr mÃ¶glich ist.");
 	SetFont("Arial",16,1,0,1);
 	Text(180,350,"Tasten:");
 	SetFont("Arial",16);
@@ -158,11 +158,11 @@ void ShowHelp(void)
 	Text(300,390,"F2 = Sound an / aus        ");
 	Text(300,410,"F3 = Spiel neu starten     ");
 	Text(300,430,"F9 = Spiel schnell beenden");
-    Text(280,450,"ESC = Zurück zum Hauptmenü ");
+    Text(280,450,"ESC = ZurÃ¼ck zum HauptmenÃ¼ ");
 	Text(240,470,"LEERTASTE = Highscoreliste ansehen");
 	Text(274,490,"Strg+V = Versionsinfo          ");
 
-	Text(1,580,"Drücke eine Maustaste um zum Spiel zurückzukehren....");
+	Text(1,580,"DrÃ¼cke eine Maustaste um zum Spiel zurÃ¼ckzukehren....");
 	SetFont("Arial",14);
 
 	GDI_Cleanup();//Get the DC of the surface
@@ -184,7 +184,7 @@ void ShowInfo(void)
 	lpddsBack->GetDC(&hdc);//Get the DC of the surface
 	SetFontColor(255,255,255);
 	SetFont("Arial",14);
-	Text(1,580,"Drücke eine Maustaste....");
+	Text(1,580,"DrÃ¼cke eine Maustaste....");
 	GDI_Cleanup();//Get the DC of the surface
 	Cls(lpddsPrimary);
 	SetGamma(0,0,0);
@@ -331,7 +331,7 @@ bool ShowHighscore()
 	y = y + 30;
  }
     SetFontColor(0,0,255);
- 	Text(320,565,"Drücke eine Maustaste....");
+ 	Text(320,565,"DrÃ¼cke eine Maustaste....");
 	SetFont("Arial",14);
 	GDI_Cleanup();//Get the DC of the surface
 	Cls(lpddsPrimary);
@@ -416,7 +416,7 @@ void EnterHighscore()
 	SetFontColor(255,255,255);
 	SetPen(255,0,0,1);	
 	SetFont("Arial",16,0,0,0);
-	Text(150,220,"Bitte Namen / Kürzel eingeben:");
+	Text(150,220,"Bitte Namen / KÃ¼rzel eingeben:");
 
 	c = 0;
 	buffer = "";
@@ -1475,7 +1475,7 @@ void GameOver()
    lpddsBack->GetDC(&hdc);//Get the DC of the surface
    SetFontColor(255,255,255);
    SetFont("Arial",14);
-   Text(150,520,"Drücke eine Maustaste....");
+   Text(150,520,"DrÃ¼cke eine Maustaste....");
 
    	GDI_Cleanup();//Release the DC of the surface
 
