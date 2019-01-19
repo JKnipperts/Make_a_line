@@ -1,8 +1,8 @@
 /**********************************************
- *			Titel   : Make a Line!            *
- *			Autor	: Jan Knipperts			  *
- *			Version : 1.3	- 27.12.2005      *
- *											  *
+ *	Titel   : Make a Line!            *
+ *	Autor	: Jan Knipperts  	  *
+ *	Version : 1.3	- 27.12.2005      *
+ *					  *
 **********************************************/
 
 
@@ -687,8 +687,8 @@ int WINAPI  WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		                   WS_POPUP, 
 						   CW_USEDEFAULT,
 		                   CW_USEDEFAULT,
-						   GetSystemMetrics(SM_CXSCREEN), //X-Auflösung
-						   GetSystemMetrics(SM_CYSCREEN), //Y-Auflösung
+						   GetSystemMetrics(SM_CXSCREEN), //X-AuflÃ¶sung
+						   GetSystemMetrics(SM_CYSCREEN), //Y-AuflÃ¶sung
 						   HWND_DESKTOP,
 		                   0,
 						   hInstance,
