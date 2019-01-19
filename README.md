@@ -12,6 +12,6 @@ The bin folder contains the complete game with all necessary files and not just 
 
 ## Disclaimer: 
 This Project does not claim any rights to the original Color Lines game by Olga Demina, Igor Ivkin and Gennady Denisov. 
-To the best of my knowledge, this title has been discontinued by its publishers. If you know otherwise, please contact me and I will remove ist accordingly. See the LICENSE for mor information.
+To the best of my knowledge, this title has been discontinued by its publishers. If you know otherwise, please contact me and I will remove this files accordingly. See the LICENSE for mor information.
 
 
