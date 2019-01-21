@@ -1,8 +1,8 @@
 # Make a Line - A Color Lines Clone/Remake
-In 2005 I wrote my own version of "Color Lines", an the addictive puzzle game originally published in 1992 for MS DOS.
+In 2005 I wrote my own version of "Color Lines", an addictive puzzle game originally published in 1992 for MS DOS.
 
-Now I recovered this old source code and decided to release it here under MIT License. Maybe it is still of use for someone.
-I wrote this game back in 2005 using MS Visual C++ 6.0 and the DirectX 6 SDK and never updated the source code afterwards. Therefore some modifications will be necessary to compile it under a modern environment. The original Visual Studio project files are included.
+I decided to release this old source code here under MIT License. Maybe it is still of use for someone.
+When I wrote this game in 2005 I used  MS Visual C++ 6.0 and the DirectX 6 SDK and never updated the source code afterwards. Therefore some modifications will be necessary to compile it under a modern environment. My original Visual Studio project files are included.
 
 ## Notes: 
 - The game uses the A* Pathfinder (Version 1.71a) by Patrick Lester for pathfinding.
