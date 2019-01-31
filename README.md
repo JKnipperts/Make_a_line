@@ -1,6 +1,9 @@
 # Make a Line 
-"Make a line" is a modernized version of the classic puzzle game "Color Lines", which uses DirectDraw and A* 
+"Make a line" is a modernized remake of the classic puzzle game "Color Lines" which uses DirectDraw and A* pathfinding.
 I wrote this game back in 2005 using  MS Visual C++ 6.0 and the DirectX SDK of June 2005. Therefore some modifications will be necessary to compile it under a modern environment. The original Visual Studio project files are included and could be helpful for the configuration.
+
+## Gameplay:
+Click on a ball to select it and then click on an empty square to move it there. You can only move along unblocked paths. Build rows of 5 or more balls of one color to score.
 
 ## Notes: 
 - The game uses the A* Pathfinder (Version 1.71a) by Patrick Lester for pathfinding.
