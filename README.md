@@ -1,4 +1,4 @@
-# Make a Line - A Color Lines Clone/Remake
+# Make a Line 
 "Make a line" is a modernized version of the classic puzzle game "Color Lines", which uses DirectDraw and A* 
 I wrote this game back in 2005 using  MS Visual C++ 6.0 and the DirectX SDK of June 2005. Therefore some modifications will be necessary to compile it under a modern environment. The original Visual Studio project files are included and could be helpful for the configuration.
 
