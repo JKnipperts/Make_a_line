@@ -13,5 +13,4 @@ Click on a ball to select it and then click on an empty square to move it there.
 ![Alt text](https://github.com/JKnipperts/Make-a-line/blob/master/Gameplay.jpg?raw=true "Title")
 
 ## Disclaimer: 
-This Project does not claim any rights to the original game "Color Lines" written by Olga Demina, Igor Ivkin and Gennady Denisov. 
-To the best of my knowledge, this title has long been discontinued by its publishers. If you know otherwise, please contact me and I will remove it accordingly. See the LICENSE for more information.
+This Project does not claim any rights to the original game "Color Lines" written by Oleg Demin (aka Olga Demina), Igor Ivkin and Gennady Denisov. To the best of my knowledge, this title has long been discontinued by its publishers. If you know otherwise, please contact me.
