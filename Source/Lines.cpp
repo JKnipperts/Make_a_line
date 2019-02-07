@@ -2,10 +2,7 @@
  *	Titel   : Make a Line!            *
  *	Autor	: Jan Knipperts  	  *
  *	Version : 1.3	- 27.12.2005      *
- *					  *
 **********************************************/
-
-
 
 
 #include <windows.h>
@@ -20,8 +17,6 @@
 #include <math.h>
 #include <time.h>
 
-
-
 using namespace std;  
 
 void ClearGame();
@@ -29,8 +24,8 @@ void ClearGame();
 
 struct _posi
 {
-	int			x;
-	int			y;
+	int		x;
+	int		y;
 };
 
 struct _ENTRY
@@ -40,38 +35,38 @@ struct _ENTRY
 };
 
 //Window:
-HINSTANCE				hInstance;							
-HWND					hwnd;
-MSG						messages;         
-WNDCLASSEX			    wincl; 
+HINSTANCE			hInstance;							
+HWND				hwnd;
+MSG				messages;         
+WNDCLASSEX			wincl; 
 
 //DirectDraw
 LPDIRECTDRAW7			lpDirectDraw;
-HRESULT					ddrval;
-LPDIRECTDRAWSURFACE7	lpddsPrimary;
-LPDIRECTDRAWSURFACE7	lpddsBack;
-LPDIRECTDRAWSURFACE7	lpddsBitmap;
-LPDIRECTDRAWSURFACE7	lpddsBitmap1;
+HRESULT				ddrval;
+LPDIRECTDRAWSURFACE7		lpddsPrimary;
+LPDIRECTDRAWSURFACE7		lpddsBack;
+LPDIRECTDRAWSURFACE7		lpddsBitmap;
+LPDIRECTDRAWSURFACE7		lpddsBitmap1;
 DDSURFACEDESC2			ddsd;
-DDSCAPS2				ddscaps; 
-DDBLTFX					ddbltfx;
-RECT					fill_area,rect;
-LPDIRECTDRAWGAMMACONTROL lpDDGammaControl = NULL; 
-DDGAMMARAMP				GammaRamp; 
-DDGAMMARAMP				OriginalRamp;
+DDSCAPS2			ddscaps; 
+DDBLTFX				ddbltfx;
+RECT				fill_area,rect;
+LPDIRECTDRAWGAMMACONTROL 	lpDDGammaControl = NULL; 
+DDGAMMARAMP			GammaRamp; 
+DDGAMMARAMP			OriginalRamp;
 unsigned char			gammacent[255][3]; 
 
-RECT				    rectbitmap;
+RECT				rectbitmap;
 LPDIRECTDRAWCLIPPER		lpddClipper;
-HDC						hdc;
+HDC				hdc;
 static HBITMAP			hBitmap ;
 static BITMAP			bitmap ;
 static HBITMAP			invBitmap;
 static BITMAP			bm;
-HFONT					Font;
-HPEN					Pen;
-COLORREF				FontColor;
-DDDEVICEIDENTIFIER2     DriverInfo;
+HFONT				Font;
+HPEN				Pen;
+COLORREF			FontColor;
+DDDEVICEIDENTIFIER2     	DriverInfo;
 
 
 //DirectSound
@@ -79,71 +74,56 @@ LPDIRECTSOUND			lpDirectSound;
 LPDIRECTSOUNDBUFFER		dsbSound;
 
 //Highscore				
-HANDLE					file;
-_ENTRY					eintrag[10];
-_ENTRY					winner;
+HANDLE				file;
+_ENTRY				eintrag[10];
+_ENTRY				winner;
 					
 
 //Gameplay
-int						x,y,z,mx,my,tx,ty,tx1,ty1,dc,dropnum;
-bool					startpos,marked,movemode,movefinished,d,active;
-POINT					maus;
-int						game[9][9]; 
-_posi					startP,ziel,mark;
-int						col,stepX,stepY;
-long					punkte,highscore,rekord;
-int						colors[9];
-_posi					freef[81];
-int						maxfree,size,ll;
-bool					gameover,SOUND, cheat,debug,s,dropresult,onend;
-string					errormsg,rname;
+int				x,y,z,mx,my,tx,ty,tx1,ty1,dc,dropnum;
+bool				startpos,marked,movemode,movefinished,d,active;
+POINT				maus;
+int				game[9][9]; 
+_posi				startP,ziel,mark;
+int				col,stepX,stepY;
+long				punkte,highscore,rekord;
+int				colors[9];
+_posi				freef[81];
+int				maxfree,size,ll;
+bool				gameover,SOUND, cheat,debug,s,dropresult,onend;
+string				errormsg,rname;
 
 //Multithreading
-HANDLE						hThread; 
-DWORD						dwThreadID; 
-LPVOID						Data;
-HWND						thwnd;
-
-
-LPTSTR				 title = "Make a Line!";
-LPTSTR				   ver = "1.3";
-LPTSTR			   verdate = "27.12.2005";
-LPTSTR				   cpr = "Copyright (c) 2005 by Jan Knipperts";
-
-int					ballspeed = 8; //Geschwindigkeit (in Pixeln) der Kugel beim "wandern"
-int					fadespeed = 4; //Dauer des "Fadeeffekts" in Millisekunden
-int					colormode = 16; //Farbtiefe in Bit
-
-
-
+HANDLE				hThread; 
+DWORD				dwThreadID; 
+LPVOID				Data;
+HWND				thwnd;
 
 
 //Konstanten:
 
-const LPTSTR				CLICK  = "sound\\Laser.wav";
-const LPTSTR				DROP   = "sound\\blub.wav";
-const LPTSTR				CLEAR  = "sound\\clear.wav";
-const LPTSTR				CLEAR2 = "sound\\clear2.wav";
-const LPTSTR				NO     = "sound\\no.wav";
+const LPTSTR			CLICK  = "sound\\Laser.wav";
+const LPTSTR			DROP   = "sound\\blub.wav";
+const LPTSTR			CLEAR  = "sound\\clear.wav";
+const LPTSTR			CLEAR2 = "sound\\clear2.wav";
+const LPTSTR			NO     = "sound\\no.wav";
 
+LPTSTR				title = "Make a Line!";
+LPTSTR				ver = "1.3";
+LPTSTR			   	verdate = "27.12.2005";
+LPTSTR				cpr = "Copyright (c) 2005 by Jan Knipperts";
 
+int				ballspeed = 8; //Geschwindigkeit (in Pixeln) der Kugel beim "wandern"
+int				fadespeed = 4; //Dauer des "Fadeeffekts" in Millisekunden
+int				colormode = 16; //Farbtiefe in Bit
 
+const int 			linefull = 5;  //How many stone must be aligned to complete a line?
+const int 			dropval  = 3;  //How many new stones apear when a line was completed?
 
-const int linefull = 5;  //How many stone must be aligned to complete a line?
-const int dropval  = 3;  //How many new stones apear when a line was completed?
-
-const int senkrecht  = 1; //The directions
-const int waagerecht = 2;
-const int diagonalR  = 3;
-const int diagonalL  = 4;
-
-
-
-
-
-
-
-
+const int 			senkrecht  = 1; //The directions
+const int 			waagerecht = 2;
+const int 			diagonalR  = 3;
+const int 			diagonalL  = 4;
 
 
 
@@ -177,7 +157,7 @@ bool KeyHit (int nVirtKey)
 
 
 
-//=========================== System
+//=========================== STRING CONVERSION
 
 
 string tostring (WORD d ) // Word to string conversion
@@ -237,25 +217,23 @@ void Restore()
 
 void ClearGame()
 {
-				marked = FALSE;
-				gameover = FALSE;	
-				movefinished = TRUE;
-				startpos = TRUE;
-				d = TRUE;			
-				ZeroMemory(&game,sizeof(game));  //Clear the playfield
-				ZeroMemory(&walkability,sizeof(walkability));			
-				ZeroMemory(&freef,sizeof(freef));	
-				ZeroMemory(&startP,sizeof(startP));	
-				ziel.x = 100;
-				ziel.y = 100;
-				Draw();						
-			    ReadHighscore();
-				punkte = 0; //Reset the highscore
-				maxfree = 0;
-				ll = 0;				
+	marked = FALSE;
+	gameover = FALSE;	
+	movefinished = TRUE;
+	startpos = TRUE;
+	d = TRUE;			
+	ZeroMemory(&game,sizeof(game));  //Clear the playfield
+	ZeroMemory(&walkability,sizeof(walkability));			
+	ZeroMemory(&freef,sizeof(freef));	
+	ZeroMemory(&startP,sizeof(startP));	
+	ziel.x = 100;
+	ziel.y = 100;
+	Draw();						
+	ReadHighscore();
+	punkte = 0; //Reset SCORE
+	maxfree = 0;
+	ll = 0;				
 }
-
-
 
 
 
@@ -266,113 +244,83 @@ void ClearGame()
 
 
 
-
-
-
-
-
 // Processing messages to the main window :
 
 LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-
 				
      switch (message)
      {
-
-	 case WM_CREATE:	
-         hInstance = ((LPCREATESTRUCT) lParam)->hInstance ;	
-	
-     return 0 ;
-
-
-     case WM_PAINT:     
-  		 
-		  if (startpos == TRUE)
-		  {					 
-			startpos = FALSE;
-	  	  }
-
-
-		   if (active == TRUE)
-		 {
+	case WM_CREATE:	
+         	hInstance = ((LPCREATESTRUCT) lParam)->hInstance ;	
+	 return 0 ;
 	     
-				if (gameover == FALSE) 
-				{
-				  
+	case WM_PAINT:       		 
+	 	if (startpos == TRUE)
+	  	{					 
+			startpos = FALSE;
+	  	}
 
-					Draw(); //Let's draw to the backbuffer first				     
-					
-								
-					if ((movemode == TRUE) && (d == FALSE))
-					{
-						  MoveSphere();
-						  DrawSphere(tx,ty,col);						  						
-					}
-						  
-				
-						 
-	
-				}
+	  	 if (active == TRUE)
+		 {
+	     		if (gameover == FALSE) 
+			{
+				Draw(); //Let's draw to the backbuffer first				     
+									
+				if ((movemode == TRUE) && (d == FALSE))
+				{
+					  MoveSphere();
+					  DrawSphere(tx,ty,col);						  						
+				}								
+			}
 		 
 			
-				while (lpddsPrimary->Flip(NULL, DDFLIP_WAIT) != DD_OK)
+			while (lpddsPrimary->Flip(NULL, DDFLIP_WAIT) != DD_OK)
+			{
+				if(FAILED(lpddsPrimary->Flip(NULL,DDFLIP_WAIT)))
 				{
-		
-						if(FAILED(lpddsPrimary->Flip(NULL,DDFLIP_WAIT)))
-						{
-	 						Restore(); //Restore contents if the main windows gets restored 
-						}
+	 				Restore(); //Restore contents if the main windows gets restored 
 				}
+			}
 	 
-		}
-    
-		
-		   	
-
-				 
-		   
+		}	   
           return 0 ;
 
+	
+	case WM_SYSCOMMAND: //Do we have to handle a systen command?
+    	{ 
+      		switch (wParam)  
+      		{ 
+        		case SC_SCREENSAVE: 
+        		// Windows wants to start the screensaver... 
 
-
-	 case WM_SYSCOMMAND: //Do we have to handle a systen command?
-    { 
-      switch (wParam)  
-      { 
-        case SC_SCREENSAVE: 
-        // Windows wants to start the screensaver... 
-
-        case SC_MONITORPOWER: 
-        // Windows wants the monitor to go in suspend mode...
+        		case SC_MONITORPOWER: 
+        		// Windows wants the monitor to go in suspend mode...
         
-        return 0;
-        // We don't allow that and return a zero... 
-      } 
-      break;  
-    }
+        		return 0;  // We don't allow that and return a zero... 
+      		} 
+      		break;  
+    	}
 
 
-	 case WM_CLOSE:				//Quit program?
-          PostQuitMessage(0);
-	     return 0;
+	case WM_CLOSE:				//Quit program?
+        	PostQuitMessage(0);
+	return 0;
 
-
-     case WM_LBUTTONDOWN: 	  //Left mouse button pressed?
-		 GetCursorPos(&maus);
-		 move();
-		 return 0;
+	case WM_LBUTTONDOWN: 	  //Left mouse button pressed?
+	 	GetCursorPos(&maus);
+		move();
+	return 0;
 
 	 case WM_RBUTTONDOWN: 	  //Right mouse button pressed?
-		 if (debug == TRUE)
-		 {
+	 	if (debug == TRUE)
+		{
 			ll = 0;
 			Draw();
 		 }
-	   	 return 0;
+	   return 0;
 	
-
 	 case WM_ACTIVATEAPP: //Our window was minimized...
 		 if (wParam == 0) 
 		 {
@@ -382,14 +330,12 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		 {
 		  active = TRUE;
 		 }
-	 return 0;
+	return 0;
 
 
-	 case WM_KEYDOWN :
-      switch(wParam)
-	    {	
-
-		 //Handle keypresses
+	case WM_KEYDOWN :
+      		switch(wParam) 		 //Handle keypresses
+		{	
 
 		   case VK_ESCAPE:  //ESC brings us back to the main menu
 		   {	
@@ -407,7 +353,6 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 
 		   }
-
 
 		   case VK_SPACE:  //Space shows the highscore table
 		   {				 	 
@@ -466,7 +411,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 		   }
 
-		    case 'J':
+		    case 'J':			// J activates cheat mode
 			{
 				if (cheat == TRUE)
 				{
@@ -482,7 +427,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		
 
-			case 'A':
+			case 'A':		//When cheat mode is activated you can press A to get 10 additional scores
 			{
 				if (cheat == TRUE)
 				{
@@ -491,7 +436,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			case 'N':
+			case 'N':		//...and N for starting again without loosing your scores
 			{
 				if (cheat == TRUE)
 				{			
@@ -508,7 +453,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		    	  
 
 
-		    case 'V': //Strg+V = Get version
+		    case 'V': //CTRL+V = Show game version
 			{
 				if (HIBYTE(GetAsyncKeyState(VK_CONTROL)) > 1) 
 				{
@@ -517,7 +462,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			case 'D': //Strg+D = Debuginfo
+			case 'D': //CTRL+D activates debug mode
 			{
 				if (HIBYTE(GetAsyncKeyState(VK_CONTROL)) > 1) 
 				{
@@ -535,10 +480,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				
 				
 				break;
-			}
-
-
-		 
+			}	 
 		}
 	  return 0;
 
@@ -555,9 +497,6 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      }
      return DefWindowProc (hwnd, message, wParam, lParam);
 }
-
-
-
 
 
 
@@ -683,31 +622,30 @@ int WINAPI  WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	  hwnd = CreateWindowEx (0, 
 		                   "MeineFensterklasse",
-						   title, 
+				   title, 
 		                   WS_POPUP, 
-						   CW_USEDEFAULT,
+				   CW_USEDEFAULT,
 		                   CW_USEDEFAULT,
-						   GetSystemMetrics(SM_CXSCREEN), //X-Auflösung
-						   GetSystemMetrics(SM_CYSCREEN), //Y-Auflösung
-						   HWND_DESKTOP,
+				   GetSystemMetrics(SM_CXSCREEN), //X-Auflösung
+				   GetSystemMetrics(SM_CYSCREEN), //Y-Auflösung
+				   HWND_DESKTOP,
 		                   0,
-						   hInstance,
-						   0);
+				   hInstance,
+				   0);
 
-
-	     
+   
 	//Initialize DirectSound
 	  if (DSoundInit(hwnd) != TRUE)
 	  {
-		    errormsg += "Kann DirectSound nicht initialisieren! ";
-			errormsg += (char) 13;
-            errormsg += "Stellen Sie sicher, dass auf dem Computer mindestens ";
-            errormsg += (char) 13;
-            errormsg += "DirectX 7.0 installiert ist.", 
+	  	errormsg += "Kann DirectSound nicht initialisieren! ";
+		errormsg += (char) 13;
+            	errormsg += "Stellen Sie sicher, dass auf dem Computer mindestens ";
+            	errormsg += (char) 13;
+            	errormsg += "DirectX 7.0 installiert ist.", 
                
-		    MessageBox(hwnd,errormsg.data(),
-             "ERROR: ", MB_OK | MB_ICONEXCLAMATION);
-			      return -1;
+		MessageBox(hwnd,errormsg.data(),
+             	"ERROR: ", MB_OK | MB_ICONEXCLAMATION);
+		return -1;
 	}
 
 	  
@@ -719,133 +657,101 @@ int WINAPI  WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if(DD_InitDirectDraw() != 0)
 	{      
-	   lpDirectDraw->RestoreDisplayMode();
-	
-			errormsg += "Kann DirectDraw nicht initialisieren! "; 
-            errormsg += (char) 13;
-            errormsg += "Stellen Sie sicher, dass auf dem Computer mindestens ";
-            errormsg += (char) 13;
-			errormsg += "DirectX 7.0 installiert ist.", 
+		lpDirectDraw->RestoreDisplayMode();
+	    	errormsg += "Kann DirectDraw nicht initialisieren! "; 
+            	errormsg += (char) 13;
+            	errormsg += "Stellen Sie sicher, dass auf dem Computer mindestens ";
+            	errormsg += (char) 13;
+	    	errormsg += "DirectX 7.0 installiert ist.", 
             
-      MessageBox(hwnd,errormsg.data(),
-             "ERROR: ", MB_OK | MB_ICONEXCLAMATION);
-
-       DD_Cleanup();
-       return -1;
+      		MessageBox(hwnd,errormsg.data(),
+             	"ERROR: ", MB_OK | MB_ICONEXCLAMATION);
+       		DD_Cleanup();
+       		return -1;
 	}
 
 	if (DD_SetVideoMode(800,600,colormode) != 0)			
 	{
-	 lpDirectDraw->RestoreDisplayMode();
-	 DD_Cleanup();
-		  errormsg = "Kann den Grafikmodus 800x600 mit"; 
-	      errormsg += tostring(colormode);
-		  errormsg += " Bit Farbtiefe nicht initialisieren!",     
-      MessageBox(hwnd,errormsg.data(),"ERROR: ", MB_OK | MB_ICONERROR);
-
-	 
-      return -1;
+		lpDirectDraw->RestoreDisplayMode();
+	 	DD_Cleanup();
+		errormsg = "Kann den Grafikmodus 800x600 mit"; 
+	      	errormsg += tostring(colormode);
+		errormsg += " Bit Farbtiefe nicht initialisieren!",     
+      		MessageBox(hwnd,errormsg.data(),"ERROR: ", MB_OK | MB_ICONERROR);	 
+      		return -1;
 	}
 
-
-		
+	
 	if(DD_InitSurfaces() != 0)
 	{      
-     lpDirectDraw->RestoreDisplayMode();
-	
-			errormsg += "Beim Initialisieren der DirectDraw Surfaces ist ein ";             
-            errormsg += (char) 13;
-			errormsg += "unerwarteter DirectX Fehler aufgetreten! ";
-            errormsg += (char) 13;
+	     	lpDirectDraw->RestoreDisplayMode();
+		errormsg += "Beim Initialisieren der DirectDraw Surfaces ist ein ";             
+            	errormsg += (char) 13;
+		errormsg += "unerwarteter DirectX Fehler aufgetreten! ";
+            	errormsg += (char) 13;
 			
-      MessageBox(hwnd,errormsg.data(),               
+      		MessageBox(hwnd,errormsg.data(),               
                "ERROR: ", MB_OK | MB_ICONERROR);
-
-	  DD_Cleanup();
-      return -1;
+	  	DD_Cleanup();
+      		return -1;
 	}
 
 
 	if (DD_InitPaintProcs() != 0)
 	{
-	  lpDirectDraw->RestoreDisplayMode();
-	
+		lpDirectDraw->RestoreDisplayMode();
 		MessageBox(hwnd,                 
-                   "Ein unerwarteter DirectX Fehler ist aufgetreten! ",
-				   "ERROR: ", MB_OK | MB_ICONERROR);
-
-	  DD_Cleanup();
-      return -1;
+                "Ein unerwarteter DirectX Fehler ist aufgetreten! ",
+		"ERROR: ", MB_OK | MB_ICONERROR);
+	  	DD_Cleanup();
+      		return -1;
 	}
 
   
-
 	if (InitBitmaps() != 0)
 	{
-		lpDirectDraw->RestoreDisplayMode();
-	   
+		lpDirectDraw->RestoreDisplayMode(); 
 		MessageBox(hwnd,                 
-                   "Fataler Fehler beim Laden der Ressourcen! ",
-				   "ERROR: ", MB_OK | MB_ICONERROR);
-
-      return -1;
+                "Fataler Fehler beim Laden der Ressourcen! ",
+		"ERROR: ", MB_OK | MB_ICONERROR);
+      		return -1;
 	}
 
 
-		ShowWindow (hwnd, nCmdShow); //Show window
+	ShowWindow (hwnd, nCmdShow); //Show window
 	if (! hwnd) return -1;
-
 	ShowOwnedPopups(hwnd,TRUE);
-
-	ShowCursor(false);			 //Disable mouse cursor
-   	
-    SetCursor(LoadCursor (hInstance,MAKEINTRESOURCE(IDC_CURSOR))); //Set own cursor
-
-	ShowCursor(true);			 //Enable mouse cursor
+	ShowCursor(false);			 //Disable mouse cursor...
+    	SetCursor(LoadCursor (hInstance,MAKEINTRESOURCE(IDC_CURSOR))); //...and set our own cursor...
+	ShowCursor(true);			 //..and enable mouse cursor again
 
 	startpos = TRUE;
 	SOUND = TRUE;
-    punkte = 0; //start games with zero points
+    	punkte = 0; //start games with zero points
     
-
-
-   InitializePathfinder (); //Init A* pathfinder
-   GetWindowRect(hwnd,&rect);				 	 
-   DD_AddColorKey (lpddsBack,0,0);
-   DD_AddColorKey (lpddsPrimary,0,0);
+   	InitializePathfinder (); //Initialize A* pathfinder
+   	GetWindowRect(hwnd,&rect);				 	 
+   	DD_AddColorKey (lpddsBack,0,0);
+   	DD_AddColorKey (lpddsPrimary,0,0);
    
-    stepX = (800 / 9);
+    	stepX = (800 / 9);
 	stepY = (524 / 9);
 	tileSizeX = stepX;
 	tileSizeY = stepY;
-  
-   
-   
-   SetCursorPos((rect.right / 2),(rect.bottom / 2));
-
-   Main();
-  
-	
     
+   	SetCursorPos((rect.right / 2),(rect.bottom / 2));
+   	
+	Main();
   
-
-
-
-   
-
-
-
-	
-    while (1)		//Handle messages 
-    { 		
-
-
+		
+    	while (1)		//Handle messages 
+    	{ 		
 
 		if (PeekMessage(&messages,NULL,0,0,PM_REMOVE))	// Is There A Message Waiting?
 		{
 			if (messages.message==WM_QUIT)				// Have We Received A Quit Message?
 			{
-			  break;						// If So quit
+				break;						// If So quit
 			}
 			else									// If Not, Deal With Window Messages
 			{
@@ -853,13 +759,10 @@ int WINAPI  WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				DispatchMessage(&messages);				// Dispatch The Message
 			}
 		}
-    }   
-
-
+    	}   
 		
 
  	 EndPathfinder(); //End A*
- 
-	 
+ 	 
 	return messages.wParam;
 }
