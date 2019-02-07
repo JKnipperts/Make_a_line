@@ -1,6 +1,5 @@
 # Make a Line 
-"Make a line" is a modernized remake of the classic puzzle game "Color Lines" which uses DirectDraw and A* pathfinding.
-
+"Make a line" is a remake of the classic puzzle game "Color Lines" (1992).
 I wrote this game back in 2005 using  MS Visual C++ 6.0 and the DirectX SDK of June 2005. Therefore some modifications will be necessary to compile it under a modern environment. The original Visual Studio project files are included and could be helpful for the configuration.
 
 - The game uses the A* Pathfinder (Version 1.71a) by Patrick Lester for pathfinding.
