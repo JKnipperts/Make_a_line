@@ -1,6 +1,6 @@
 # Make a Line 
 "Make a line" is a remake of the classic puzzle game "Color Lines" (1992).
-I wrote this game back in 2005 using  MS Visual C++ 6.0 and the DirectX SDK of June 2005. Therefore some modifications will be necessary to compile it under a modern environment. The original Visual Studio project files are included and could be helpful for the configuration.
+I wrote this game back in 2005 using  MS Visual C++ 6.0 and the DirectX SDK of June 2005. Therefore some modifications will be necessary to compile it under a more modern environment. The original Visual Studio project files are included and could be helpful for the configuration.
 
 - The game uses the A* Pathfinder (Version 1.71a) by Patrick Lester for pathfinding.
 - The bin folder contains the complete game with all necessary files to play it.
@@ -12,4 +12,4 @@ Click on a ball to select it and then click on an empty square to move it there.
 ![Alt text](https://github.com/JKnipperts/Make-a-line/blob/master/Gameplay.jpg?raw=true "Title")
 
 ## Disclaimer: 
-This Project does not claim any rights to the original game "Color Lines" written by Oleg Demin (aka Olga Demina), Igor Ivkin and Gennady Denisov. To the best of my knowledge, this title has long been discontinued by its publishers. If you know otherwise, please contact me.
+This Project does not claim any rights to the original game "Color Lines" written by Oleg Demin (aka Olga Demina), Igor Ivkin and Gennady Denisov. To the best of my knowledge, this title is abandonware and has long been discontinued by its publishers. If you know otherwise, please contact me.
